@@ -11,11 +11,6 @@
 #ifndef NONSTD_SV_LITE_H_INCLUDED
 #define NONSTD_SV_LITE_H_INCLUDED
 
-#define string_view_lite_MAJOR 1
-#define string_view_lite_MINOR 0
-#define string_view_lite_PATCH 0
-#define string_view_lite_VERSION nssv_STRINGIFY(string_view_lite_MAJOR) "." nssv_STRINGIFY(string_view_lite_MINOR) "." nssv_STRINGIFY(string_view_lite_PATCH)
-
 #define nssv_STRINGIFY(x) nssv_STRINGIFY_(x)
 #define nssv_STRINGIFY_(x) #x
 
@@ -98,6 +93,7 @@
 
 namespace nonstd
 {
+  template <class CharT, class Traits, class Allocators>
 
   template <class CharT, class Traits, class Allocator = std::allocator<CharT>>
   std::basic_string<CharT, Traits, Allocator>
@@ -105,14 +101,11 @@ namespace nonstd
   {
     return std::basic_string<CharT, Traits, Allocator>(v.begin(), v.end(), a);
   }
-
-  template <class CharT, class Traits, class Allocator>
-  std::basic_string_view<CharT, Traits>
-  to_string_view(std::basic_string<CharT, Traits, Allocator> const &s)
-  {
-    return std::basic_string_view<CharT, Traits>(s.data(), s.size());
+  std::basic_string<CharT, Traits, Allocators>
+  
+  to_string_view(std::basic_string<CharT, Traits, Allocators> const &s) {
+    return std::basic_string_view<CharT, Traits, Allocators>(s.data(), s.size());
   }
-
   // Literal operators sv and _sv:
 
 #if nssv_CONFIG_STD_SV_OPERATOR

@@ -8,6 +8,9 @@ microseconds_duration_buckets_test() ->
                 1000000, 2500000, 5000000, 10000000],
                prometheus_http:microseconds_duration_buckets()).
 
+microseconds_duration_buckets_pretest() -> 
+  ?assertMatch([])
+
 status_class_test() ->
   ?assertError({invalid_value, "qwe", "status code must be a positive integer"},
                prometheus_http:status_class("qwe")),
